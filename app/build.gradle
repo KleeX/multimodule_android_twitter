@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.klex.twitterclient"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode version_code as int
+        versionName version_name
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation "androidx.exifinterface:exifinterface:$appcompat_support_version"
+    implementation "androidx.vectordrawable:vectordrawable-animated:$appcompat_support_version"
+    implementation "androidx.browser:browser:$appcompat_support_version"
+    implementation "androidx.cardview:cardview:$appcompat_support_version"
+    implementation "androidx.vectordrawable:vectordrawable-animated:$appcompat_support_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_support_version"
+    implementation "androidx.recyclerview:recyclerview:$appcompat_support_version"
+    implementation "androidx.legacy:legacy-support-v4:$appcompat_support_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation project(':ui')
+    implementation project(':presentation')
+    implementation project(':domain')
+    implementation project(':twitter')
+    implementation project(':storage')
+}
+
+//dagger (DI)
+dependencies {
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+}
+
+//rx android/java/kotlin
+dependencies {
+    implementation "io.reactivex.rxjava2:rxjava:$rx_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+}
+
+//moxy
+dependencies {
+    implementation "com.arello-mobile:moxy-android:$moxy_version"
+    implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
+    kapt "com.arello-mobile:moxy-compiler:$moxy_version"
+}
+
+//retrofit
+dependencies {
+    implementation "com.squareup.okhttp3:logging-interceptor:$ohttp_logging_interceptor"
+    implementation "com.squareup.okhttp3:okhttp:$ohttp_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+}

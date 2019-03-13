@@ -1,0 +1,128 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+@file_props = "gradle.properties"
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  lane :assemble_apk_for_prod do
+    next_version(message: "Release build")
+    assemble(type: 'Release')
+  end
+
+  lane :assemble do |options|
+    type = options[:type]
+    begin
+      gradle(task: "assemble", build_type: type)
+    rescue Exception => e
+      puts 'assemble#{type} gets executed with error!'
+      puts "Rescued: #{e.inspect}"
+    ensure # will always get executed
+      puts 'assemble#{type} gets executed.'
+    end
+  end
+
+  lane :upload_to_google_play_beta do
+    next_version(type: type, message: "Google Play Beta build")
+    upload_to(
+      track: "beta",
+      apk_path: "app/build/outputs/apk/release/app-release.apk"
+    )
+  end
+
+  
+  lane :upload_to_google_play_release do |options|
+    next_version(type: type, message: "Google Play Beta build")
+    upload_to(
+      track: "production",
+      apk_path: "app/build/outputs/apk/release/app-release.apk"
+    )
+  end
+
+  lane :next_version do |options|
+
+    text = File.read("../" + @file_props)
+    new_contents = text.gsub(/version_code=.*\n/, "version_code=#{number_of_commits()}\n")
+    File.open("../" + @file_props, "w") {|file| file.puts new_contents }
+
+    type = options[:type]
+    message = options[:message]
+
+    text = File.read("../" + @file_props)
+    v_name_old = text.scan(/version_name=.*\n/).first.chomp
+    v_name_old.slice! "version_name="
+    versions = v_name_old.split('.')
+
+    v_major = Integer(versions[0])
+    v_minor = Integer(versions[1])
+    v_patch = Integer(versions[2])
+
+    if type == "major"
+      v_major = v_major + 1
+      v_minor = 0
+      v_patch = 0
+    elsif type == "minor"
+      v_minor = v_minor + 1
+      v_patch = 0
+    else
+      v_patch = v_patch + 1
+    end
+
+    v_name_new = v_major.to_s + "." + v_minor.to_s + "." + v_patch.to_s
+
+    new_contents = text.gsub(/version_name=.*\n/, "version_name=#{v_name_new}\n")
+    File.open("../" + @file_props, "w") {|file| file.puts new_contents }
+
+    git_commit(
+      message: "new version #{v_name_new}",
+      path: @file_props
+    )
+
+    add_git_tag(
+      message: message,
+      tag: v_name_new,
+      prefix: "v"
+    )
+
+    push_to_git_remote(
+      tags: true
+    )
+
+  end
+
+  def upload_to (options)      
+    apk_path = options[:apk_path]
+    track = options[:track]
+    FileUtils.rm_rf(apk_path)
+
+    assemble(type: 'Release')
+
+    upload_to_play_store(
+      track: track,
+      apk: apk_path,
+      json_key: "fastlane/SomeFileKey.json",
+      skip_upload_metadata: true,
+      skip_upload_aab: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end

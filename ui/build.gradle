@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.exifinterface:exifinterface:$appcompat_support_version"
+    implementation "androidx.vectordrawable:vectordrawable-animated:$appcompat_support_version"
+    implementation "androidx.browser:browser:$appcompat_support_version"
+    implementation "androidx.cardview:cardview:$appcompat_support_version"
+    implementation "androidx.vectordrawable:vectordrawable-animated:$appcompat_support_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.recyclerview:recyclerview:$appcompat_support_version"
+    implementation "androidx.legacy:legacy-support-v4:$appcompat_support_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_ui"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_ui"
+
+    implementation project(':presentation')
+}
+
+//dagger (DI)
+dependencies {
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+}
+
+//rx android/java/kotlin
+dependencies {
+    implementation "io.reactivex.rxjava2:rxjava:$rx_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+}
+
+//moxy
+dependencies {
+    implementation "com.arello-mobile:moxy-android:$moxy_version"
+    implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
+    kapt "com.arello-mobile:moxy-compiler:$moxy_version"
+}
+
+kapt {
+    arguments {
+        arg("moxyReflectorPackage", "com.klex.ui")
+    }
+}
