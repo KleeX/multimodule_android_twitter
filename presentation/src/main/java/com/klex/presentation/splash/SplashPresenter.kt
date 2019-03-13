@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SplashPresenter @Inject constructor() : MvpPresenter<SplashView>() {
 
     @Inject
-    lateinit var initInteractor: InitInteractor
+    internal lateinit var initInteractor: InitInteractor
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

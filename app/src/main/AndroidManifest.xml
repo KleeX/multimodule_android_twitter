@@ -24,7 +24,9 @@
 
         <activity android:name="com.klex.ui.activities.LoginActivity" />
         <activity android:name="com.klex.ui.activities.MainActivity" />
-        <activity android:name="com.klex.twitter.FakeTwitterActivity" />
+        <activity
+            android:name="com.klex.twitter.FakeTwitterActivity"
+            android:theme="@style/Theme.Transparent" />
 
     </application>
 </manifest>

@@ -13,7 +13,9 @@ import com.twitter.sdk.android.core.TwitterCore
 class TwitterLogin(private val context: Context) : TwitterLoginSource {
 
     override fun authenticate() {
-        context.startActivity(Intent(context, FakeTwitterActivity::class.java))
+        val intent = Intent(context, FakeTwitterActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(intent)
     }
 
     override fun logout() {
