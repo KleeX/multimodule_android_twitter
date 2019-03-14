@@ -1,9 +1,9 @@
 package com.klex.twitterclient.repositories
 
 import com.klex.domain.repositories.TwitterInitRepository
-import com.klex.twitter.interfaces.TwitterInitSource
+import com.klex.twitter.implementations.TwitterInit
 
-class TwitterInitRepoImpl(private val twitterInit: TwitterInitSource) : TwitterInitRepository {
+class TwitterInitRepoImpl(private val twitterInit: TwitterInit) : TwitterInitRepository {
 
     override val isAuthenticated: Boolean
         get() = twitterInit.isAuthenticated

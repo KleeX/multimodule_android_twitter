@@ -9,8 +9,6 @@ import com.klex.presentation.interfaces.InitInteractor
 import com.klex.presentation.interfaces.LoginInteractor
 import com.klex.twitter.implementations.TwitterInit
 import com.klex.twitter.implementations.TwitterLogin
-import com.klex.twitter.interfaces.TwitterInitSource
-import com.klex.twitter.interfaces.TwitterLoginSource
 import com.klex.twitterclient.delegates.InitDelegate
 import com.klex.twitterclient.delegates.LoginDelegate
 import com.klex.twitterclient.repositories.TwitterInitRepoImpl
@@ -24,23 +22,13 @@ class TwitterModule {
 
     @Provides
     @Singleton
-    fun provideTwitterInitSource(application: Application): TwitterInitSource =
-        TwitterInit(application.applicationContext)
+    fun provideTwitterInitRepository(application: Application): TwitterInitRepository =
+        TwitterInitRepoImpl(TwitterInit(application.applicationContext))
 
     @Provides
     @Singleton
-    fun provideTwitterLoginSource(application: Application): TwitterLoginSource =
-        TwitterLogin(application.applicationContext)
-
-    @Provides
-    @Singleton
-    fun provideTwitterInitRepository(twitterInitSource: TwitterInitSource): TwitterInitRepository =
-        TwitterInitRepoImpl(twitterInitSource)
-
-    @Provides
-    @Singleton
-    fun provideTwitterLoginRepository(twitterLoginSource: TwitterLoginSource): TwitterLoginRepository =
-        TwitterLoginRepoImpl(twitterLoginSource)
+    fun provideTwitterLoginRepository(application: Application): TwitterLoginRepository =
+        TwitterLoginRepoImpl(TwitterLogin(application.applicationContext))
 
     @Provides
     @Singleton
