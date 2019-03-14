@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
-import com.klex.twitter.FakeTwitterActivity
+import com.klex.twitter.fake_activities.FakeTwitterActivity
 import com.twitter.sdk.android.core.TwitterCore
 
 
