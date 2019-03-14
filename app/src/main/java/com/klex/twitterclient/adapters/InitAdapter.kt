@@ -1,9 +1,9 @@
-package com.klex.twitterclient.delegates
+package com.klex.twitterclient.adapters
 
 import com.klex.domain.InitInteractorImpl
 import com.klex.presentation.interfaces.InitInteractor
 
-class InitDelegate(private val initInteractorImpl: InitInteractorImpl) : InitInteractor {
+class InitAdapter(private val initInteractorImpl: InitInteractorImpl) : InitInteractor {
     override val isAuthenticated: Boolean
         get() = initInteractorImpl.isAuthenticated
 

@@ -1,8 +1,8 @@
 package com.klex.domain
 
-import com.klex.domain.repositories.TwitterInitRepository
+import com.klex.domain.datasources.TwitterInitDataSource
 
-class InitInteractorImpl(private val twitterInit: TwitterInitRepository) {
+class InitInteractorImpl(private val twitterInit: TwitterInitDataSource) {
 
     val isAuthenticated: Boolean
         get() = twitterInit.isAuthenticated

@@ -1,9 +1,9 @@
-package com.klex.twitterclient.delegates
+package com.klex.twitterclient.adapters
 
 import com.klex.domain.LoginInteractorImpl
 import com.klex.presentation.interfaces.LoginInteractor
 
-class LoginDelegate(private val loginInteractorImpl: LoginInteractorImpl) : LoginInteractor {
+class LoginAdapter(private val loginInteractorImpl: LoginInteractorImpl) : LoginInteractor {
 
     override fun authenticate() = loginInteractorImpl.authenticate()
 

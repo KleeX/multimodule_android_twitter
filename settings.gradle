@@ -1,1 +1,1 @@
-include ':app', ':ui', ':presentation', ':domain', ':storage', ':twitter'
+include ':app', ':ui', ':presentation', ':interactors', ':storage', ':twitter'
