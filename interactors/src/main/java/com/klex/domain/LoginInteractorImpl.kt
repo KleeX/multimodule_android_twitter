@@ -1,8 +1,8 @@
 package com.klex.domain
 
-import com.klex.domain.datasources.TwitterLoginDataSource
+import com.klex.domain.repositories.LoginRepository
 
-class LoginInteractorImpl(private val twitterLogin: TwitterLoginDataSource) {
-    fun authenticate() = twitterLogin.authenticate()
-    fun logout() = twitterLogin.logout()
+class LoginInteractorImpl(private val login: LoginRepository) {
+    fun authenticate() = login.authenticate()
+    fun logout() = login.logout()
 }
