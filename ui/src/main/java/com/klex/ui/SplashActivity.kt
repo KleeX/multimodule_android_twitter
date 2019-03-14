@@ -1,4 +1,4 @@
-package com.klex.ui.activities
+package com.klex.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.klex.presentation.splash.SplashPresenter
 import com.klex.presentation.splash.SplashView
+import com.klex.ui.login.LoginActivity
+import com.klex.ui.main.MainActivity
 import com.klex.ui.mvpx.MvpXActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject

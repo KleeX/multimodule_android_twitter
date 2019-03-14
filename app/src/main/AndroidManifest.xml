@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.klex.ui.activities.SplashActivity"
+            android:name="com.klex.ui.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.klex.ui.activities.LoginActivity" />
-        <activity android:name="com.klex.ui.activities.MainActivity" />
+        <activity android:name="com.klex.ui.login.LoginActivity" />
+        <activity android:name="com.klex.ui.main.MainActivity" />
         <activity
             android:name="com.klex.twitter.FakeTwitterActivity"
             android:theme="@style/Theme.Transparent" />

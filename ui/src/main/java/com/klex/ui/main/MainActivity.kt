@@ -1,4 +1,4 @@
-package com.klex.ui.activities
+package com.klex.ui.main
 
 import android.os.Bundle
 import com.klex.ui.R

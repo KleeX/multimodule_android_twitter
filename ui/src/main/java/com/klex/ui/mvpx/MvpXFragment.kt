@@ -8,7 +8,7 @@ import com.arellomobile.mvp.MvpDelegate
 /**
  * Created by klex.
  */
-class MvpXFragment : Fragment() {
+open class MvpXFragment : Fragment() {
 
     private var mIsStateSaved: Boolean = false
     private var mMvpDelegate: MvpDelegate<out MvpXFragment>? = null

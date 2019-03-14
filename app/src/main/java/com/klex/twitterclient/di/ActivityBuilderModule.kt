@@ -1,8 +1,8 @@
 package com.klex.twitterclient.di
 
-import com.klex.ui.activities.LoginActivity
-import com.klex.ui.activities.MainActivity
-import com.klex.ui.activities.SplashActivity
+import com.klex.ui.SplashActivity
+import com.klex.ui.login.LoginActivity
+import com.klex.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
