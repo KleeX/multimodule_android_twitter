@@ -1,10 +1,10 @@
 package com.klex.ui.main
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.klex.ui.R
-import com.klex.ui.mvpx.MvpXActivity
 
-class MainActivity : MvpXActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

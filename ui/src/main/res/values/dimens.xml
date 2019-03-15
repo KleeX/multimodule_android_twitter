@@ -6,4 +6,5 @@
     <dimen name="tweets_list_padding_top">10dp</dimen>
     <dimen name="tweet_avatar_wh">65dp</dimen>
     <dimen name="spacing">10dp</dimen>
+    <dimen name="margin_fab">16dp</dimen>
 </resources>

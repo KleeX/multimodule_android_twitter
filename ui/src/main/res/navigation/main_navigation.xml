@@ -7,5 +7,13 @@
     <keep_state_fragment
         android:id="@+id/tweetsFragment"
         android:name="com.klex.ui.feed.TweetsFragment"
-        android:label="TweetsFragment" />
+        android:label="TweetsFragment">
+        <action
+            android:id="@+id/action_tweetsFragment_to_composeFragment"
+            app:destination="@id/composeFragment" />
+    </keep_state_fragment>
+    <keep_state_fragment
+        android:id="@+id/composeFragment"
+        android:name="com.klex.ui.compose.ComposeFragment"
+        android:label="ComposeFragment" />
 </navigation>

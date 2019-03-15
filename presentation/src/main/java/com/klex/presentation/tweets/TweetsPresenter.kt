@@ -22,17 +22,23 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        viewState.showLoading()
         loadTweets()
     }
 
     override fun attachView(view: TweetsView?) {
         super.attachView(view)
-        if (tweets.isEmpty())
-            loadTweets()
+        checkTweets()
     }
 
-    private fun loadTweets() {
-        viewState.showLoading()
+    fun checkTweets() {
+        if (tweets.isEmpty()) {
+            viewState.showLoading()
+            loadTweets()
+        }
+    }
+
+    fun loadTweets() {
         tweetsDisposable?.dispose()
         tweetsDisposable = tweetsInteractor.tweets
             .map {
@@ -67,6 +73,11 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
             )
             else -> Time((time / SECOND_MILLISECONDS).toInt(), TimePointer.Later)
         }
+    }
+
+    override fun detachView(view: TweetsView?) {
+        tweetsDisposable?.dispose()
+        super.detachView(view)
     }
 }
 
