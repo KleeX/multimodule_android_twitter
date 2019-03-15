@@ -8,3 +8,5 @@ data class Tweet(
     val pictureUrl: String,
     val created: Long
 )
+
+class TweetPending(val text: String = "", val picturePath: String = "")

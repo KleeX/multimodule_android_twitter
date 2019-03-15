@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpPresenter
 import com.klex.presentation.Time
 import com.klex.presentation.TimePointer
 import com.klex.presentation.Tweet
+import com.klex.presentation.TweetPending
 import com.klex.presentation.interfaces.TweetsInteractor
 import io.reactivex.disposables.Disposable
 import java.util.*
@@ -18,7 +19,9 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
     lateinit var tweetsInteractor: TweetsInteractor
 
     private var tweetsDisposable: Disposable? = null
-    var tweets = listOf<Tweet>()
+    private var tweetPendingDisposable: Disposable? = null
+    private var tweetPushingDisposable: Disposable? = null
+    var tweets = mutableListOf<Tweet>()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -29,6 +32,27 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
     override fun attachView(view: TweetsView?) {
         super.attachView(view)
         checkTweets()
+        tweetPendingDisposable?.dispose()
+        tweetPendingDisposable = tweetsInteractor.observePendingTweet()
+            .subscribe({
+                if (it.text.isNotEmpty() || it.picturePath.isNotEmpty())
+                    pushTweet(it)
+                viewState.showPendingTweet()
+            }, {
+                it.printStackTrace()
+            })
+    }
+
+    private fun pushTweet(tweet: TweetPending) {
+        tweetPushingDisposable?.dispose()
+        tweetPushingDisposable = tweetsInteractor.pushTweet(tweet.text, tweet.picturePath)
+            .subscribe({
+                tweets.add(0, it)
+                viewState.notifyTweetAdded()
+                tweetsInteractor.pendingTweet()
+            }, {
+                it.printStackTrace()
+            })
     }
 
     fun checkTweets() {
@@ -44,7 +68,7 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
             .map {
                 val currentTime = Date()
                 it.forEach { tweet -> tweet.time = getTimeAgo(tweet.created, currentTime.time) }
-                return@map it
+                return@map it.toMutableList()
             }
             .subscribe({
                 tweets = it
@@ -77,6 +101,8 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
 
     override fun detachView(view: TweetsView?) {
         tweetsDisposable?.dispose()
+        tweetPendingDisposable?.dispose()
+        tweetPushingDisposable?.dispose()
         super.detachView(view)
     }
 }

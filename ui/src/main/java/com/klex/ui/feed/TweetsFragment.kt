@@ -88,4 +88,12 @@ class TweetsFragment : MvpXFragment(), TweetsView {
         progress.show = false
         swipe_to_refresh.isRefreshing = false
     }
+
+    override fun showPendingTweet() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun notifyTweetAdded() {
+        tweetsAdapter.notifyItemInserted(0)
+    }
 }

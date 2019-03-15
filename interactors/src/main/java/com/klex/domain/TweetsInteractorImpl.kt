@@ -1,6 +1,7 @@
 package com.klex.domain
 
 import com.klex.domain.repositories.TweetsRepository
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
@@ -19,6 +20,15 @@ class TweetsInteractorImpl(
             .subscribeOn(subscribeScheduler)
             .observeOn(observeScheduler)
 
-    fun pushTweet(textContent: String = "", picture: String = "") =
+    fun pushTweet(textContent: String = "", picture: String = ""): Single<Tweet> =
         tweetsRepository.pushTweet(textContent, picture)
+            .subscribeOn(subscribeScheduler)
+            .observeOn(observeScheduler)
+
+    fun pendingTweet(textContent: String = "", picture: String = "") =
+        tweetsRepository.pendingTweet(textContent, picture)
+
+    fun observePendingTweet(): Observable<TweetPending> = tweetsRepository.observePendingTweet()
+        .subscribeOn(subscribeScheduler)
+        .observeOn(observeScheduler)
 }

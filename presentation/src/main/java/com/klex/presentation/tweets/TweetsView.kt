@@ -7,4 +7,6 @@ interface TweetsView : MvpView {
     fun onErrorLoadingTweets()
     fun showLoading()
     fun hideLoading()
+    fun showPendingTweet()
+    fun notifyTweetAdded()
 }

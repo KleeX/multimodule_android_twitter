@@ -10,6 +10,7 @@ import com.klex.domain.repositories.TweetsRepository
 import com.klex.presentation.interfaces.InitInteractor
 import com.klex.presentation.interfaces.LoginInteractor
 import com.klex.presentation.interfaces.TweetsInteractor
+import com.klex.storage.PendingTweet
 import com.klex.twitter.implementations.TwitterInit
 import com.klex.twitter.implementations.TwitterLogin
 import com.klex.twitter.implementations.TwitterTimeLine
@@ -40,7 +41,7 @@ class TwitterModule {
     @Provides
     @Singleton
     fun provideTweetsRepository(application: Application): TweetsRepository =
-        TweetsRepoImpl(TwitterTimeLine(application.applicationContext))
+        TweetsRepoImpl(TwitterTimeLine(), PendingTweet(application.applicationContext))
 
     @Provides
     @Singleton

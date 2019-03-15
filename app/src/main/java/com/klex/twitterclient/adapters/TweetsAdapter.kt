@@ -2,7 +2,9 @@ package com.klex.twitterclient.adapters
 
 import com.klex.domain.TweetsInteractorImpl
 import com.klex.presentation.Tweet
+import com.klex.presentation.TweetPending
 import com.klex.presentation.interfaces.TweetsInteractor
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class TweetsAdapter(private var tweetsInteractorImpl: TweetsInteractorImpl) : TweetsInteractor {
@@ -27,4 +29,11 @@ class TweetsAdapter(private var tweetsInteractorImpl: TweetsInteractorImpl) : Tw
                     Tweet(username, nickname, userAvatar, textContent, pictureUrl, created)
                 }
             }
+
+    override fun pendingTweet(textContent: String, picture: String) =
+        tweetsInteractorImpl.pendingTweet(textContent, picture)
+
+    override fun observePendingTweet(): Observable<TweetPending> =
+        tweetsInteractorImpl.observePendingTweet()
+            .map { TweetPending(it.text, it.picturePath) }
 }

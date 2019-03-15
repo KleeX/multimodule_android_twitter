@@ -11,6 +11,8 @@ class Tweet(
     lateinit var time: Time
 }
 
+class TweetPending(val text: String = "", val picturePath: String = "")
+
 enum class TimePointer {
     Seconds, Minutes, Hours, Yesterday, Later
 }

@@ -1,6 +1,5 @@
 package com.klex.twitter.implementations
 
-import android.content.Context
 import com.klex.twitter.TweetResponse
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
@@ -15,7 +14,7 @@ import okhttp3.RequestBody
 import java.io.File
 
 
-class TwitterTimeLine(private val context: Context) {
+class TwitterTimeLine {
 
     val singleTweets: Single<List<TweetResponse>>
         get() = Single.create<List<TweetResponse>> { emitter ->
