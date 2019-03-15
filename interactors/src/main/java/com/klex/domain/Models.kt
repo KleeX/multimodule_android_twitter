@@ -1,10 +1,10 @@
-package com.klex.twitter
+package com.klex.domain
 
-data class TweetResponse(
+data class Tweet(
     val username: String,
     val nickname: String,
     val userAvatar: String,
     val textContent: String,
-    val pictures: List<String>,
-    val created: String
+    val pictureUrl: String,
+    val created: Long
 )

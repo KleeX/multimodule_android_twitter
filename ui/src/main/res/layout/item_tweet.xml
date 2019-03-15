@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/tweets_list_padding_start"
+    android:paddingTop="@dimen/tweets_list_padding_top"
+    android:paddingEnd="@dimen/tweets_list_padding_end">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/tweet_avatar_wh"
+        android:layout_height="@dimen/tweet_avatar_wh"
+        android:layout_marginEnd="@dimen/spacing"
+        android:src="@android:color/holo_blue_bright"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:text="Name of user very long"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_username"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:text="\@nicknameverylong"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_nickname"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:text="3h"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_age"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/iv_media_picture"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginTop="@dimen/spacing"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/alert_dark_frame"
+        tools:ignore="ContentDescription" />
+</RelativeLayout>

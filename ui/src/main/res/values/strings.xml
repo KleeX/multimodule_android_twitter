@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">ui</string>
     <string name="login">Login</string>
+    <string name="seconds">s</string>
+    <string name="minutes">m</string>
+    <string name="hours">h</string>
+    <string name="yesterday">Yesterday at</string>
 </resources>

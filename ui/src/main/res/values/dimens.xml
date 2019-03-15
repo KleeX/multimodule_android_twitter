@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_btn_w">200dp</dimen>
+    <dimen name="tweets_list_padding_start">10dp</dimen>
+    <dimen name="tweets_list_padding_end">10dp</dimen>
+    <dimen name="tweets_list_padding_top">10dp</dimen>
+    <dimen name="tweet_avatar_wh">65dp</dimen>
+    <dimen name="spacing">10dp</dimen>
 </resources>

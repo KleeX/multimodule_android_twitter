@@ -27,19 +27,5 @@
         <activity
             android:name="com.klex.twitter.fake_activities.FakeTwitterActivity"
             android:theme="@style/Theme.Transparent" />
-        <activity
-            android:name="com.klex.twitter.fake_activities.FakeTweetActivity"
-            android:theme="@style/Theme.Transparent" />
-
-        <receiver
-            android:name="com.klex.twitter.TweetResultReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS" />
-                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE" />
-                <action android:name="com.twitter.sdk.android.tweetcomposer.TWEET_COMPOSE_CANCEL" />
-            </intent-filter>
-        </receiver>
-
     </application>
 </manifest>

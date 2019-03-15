@@ -1,9 +1,9 @@
-package com.klex.domain.repositories
+package com.klex.presentation.interfaces
 
-import com.klex.domain.Tweet
+import com.klex.presentation.Tweet
 import io.reactivex.Single
 
-interface TweetsRepository {
+interface TweetsInteractor {
     val tweets: Single<List<Tweet>>
     fun pushTweet(textContent: String = "", picture: String = ""): Single<Tweet>
 }

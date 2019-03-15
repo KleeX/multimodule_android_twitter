@@ -1,0 +1,30 @@
+package com.klex.twitterclient.adapters
+
+import com.klex.domain.TweetsInteractorImpl
+import com.klex.presentation.Tweet
+import com.klex.presentation.interfaces.TweetsInteractor
+import io.reactivex.Single
+
+class TweetsAdapter(private var tweetsInteractorImpl: TweetsInteractorImpl) : TweetsInteractor {
+    override val tweets: Single<List<Tweet>>
+        get() = tweetsInteractorImpl.tweets
+            .map {
+                val tweets = mutableListOf<Tweet>()
+                it.forEach { tweet ->
+                    with(tweet) {
+                        tweets.add(
+                            Tweet(username, nickname, userAvatar, textContent, pictureUrl, created)
+                        )
+                    }
+                }
+                return@map tweets
+            }
+
+    override fun pushTweet(textContent: String, picture: String): Single<Tweet> =
+        tweetsInteractorImpl.pushTweet(textContent, picture)
+            .map {
+                with(it) {
+                    Tweet(username, nickname, userAvatar, textContent, pictureUrl, created)
+                }
+            }
+}
