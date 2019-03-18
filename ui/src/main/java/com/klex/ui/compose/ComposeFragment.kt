@@ -1,16 +1,34 @@
 package com.klex.ui.compose
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.media.MediaScannerConnection
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.klex.presentation.compose.ComposePresenter
 import com.klex.presentation.compose.ComposeView
 import com.klex.ui.R
+import com.klex.ui.createImageFile
 import com.klex.ui.mvpx.MvpXFragment
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import dagger.android.support.AndroidSupportInjection
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 class ComposeFragment : MvpXFragment(), ComposeView {
@@ -34,10 +52,111 @@ class ComposeFragment : MvpXFragment(), ComposeView {
     ): View = inflater.inflate(R.layout.fragment_compose, container, false)
 
     override fun openGallery() {
-
+        if (!requestReadWritePermissions()) {
+            presenter.functionCompletePermissions = { openGallery() }
+            return
+        }
+        val galleryIntent = Intent(
+            Intent.ACTION_PICK,
+            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
     }
 
     override fun openCamera() {
+        if (!requestReadWritePermissions()) {
+            presenter.functionCompletePermissions = { openCamera() }
+            return
+        }
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(requireContext().packageManager) != null) {
+            val photoFile = requireContext().createImageFile()
+            presenter.currentPhotoPath = photoFile.absolutePath
+            val photoURI =
+                FileProvider.getUriForFile(requireContext(), "com.klex.fileprovider", photoFile)
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                if (resultCode != Activity.RESULT_OK) return
+                presenter.currentPhotoPath?.let {
+                    cropImage(it)
+                }
+            }
+            GALLERY_REQUEST_CODE -> {
+                if (resultCode != Activity.RESULT_OK) return
+                val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data?.data)
+                val path = saveImage(bitmap)
+                cropImage(path)
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                if (resultCode != Activity.RESULT_OK) return
+                val file = File(CropImage.getActivityResult(data).uri.path).absolutePath
+                presenter.selectedFilePath = file
+            }
+        }
+    }
+
+    private fun cropImage(path: String) {
+        CropImage.activity(Uri.fromFile(File(path)))
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .setAspectRatio(1, 1)
+            .start(requireContext(), this)
+    }
+
+    private fun saveImage(myBitmap: Bitmap): String {
+        val bytes = ByteArrayOutputStream()
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+        val file = requireContext().createImageFile()
+        val fo = FileOutputStream(file)
+        fo.write(bytes.toByteArray())
+        MediaScannerConnection.scanFile(
+            requireContext(),
+            arrayOf(file.path),
+            arrayOf("image/jpeg"), null
+        )
+        fo.close()
+        Log.d("file", "File Saved::--->" + file.absolutePath)
+        return file.absolutePath
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSIONS_REQUEST_CODE ->
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    presenter.functionCompletePermissions?.invoke()
+                }
+        }
+    }
+
+    private fun requestReadWritePermissions() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSIONS_REQUEST_CODE
+            )
+            false
+        } else true
+
+    companion object {
+        private const val CAMERA_REQUEST_CODE = 0x10
+        private const val GALLERY_REQUEST_CODE = 0x11
+        private const val PERMISSIONS_REQUEST_CODE = 0x12
     }
 }

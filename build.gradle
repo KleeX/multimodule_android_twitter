@@ -19,6 +19,7 @@ buildscript {
     ext.appcompat_support_version = '1.0.0'
     ext.appcompat_version = '1.0.2'
     ext.navigation_ui = '1.0.0-rc02'
+    ext.image_cropper = '2.6.0'
 
     repositories {
         google()
