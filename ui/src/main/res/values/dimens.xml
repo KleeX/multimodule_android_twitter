@@ -7,4 +7,5 @@
     <dimen name="tweet_avatar_wh">65dp</dimen>
     <dimen name="spacing">10dp</dimen>
     <dimen name="margin_fab">16dp</dimen>
+    <dimen name="text_tweet_uploading">24sp</dimen>
 </resources>

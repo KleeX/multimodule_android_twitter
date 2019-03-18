@@ -77,7 +77,7 @@ class TweetsFragment : MvpXFragment(), TweetsView {
     }
 
     override fun onErrorLoadingTweets() {
-        Toast.makeText(context, "Error loading tweets", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.error_loading_tweets), Toast.LENGTH_LONG).show()
     }
 
     override fun showLoading() {
@@ -90,7 +90,11 @@ class TweetsFragment : MvpXFragment(), TweetsView {
     }
 
     override fun showPendingTweet() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        tv_uploading.show = true
+    }
+
+    override fun hidePendingTweet() {
+        tv_uploading.show = false
     }
 
     override fun notifyTweetAdded() {

@@ -5,4 +5,6 @@
     <string name="minutes">m</string>
     <string name="hours">h</string>
     <string name="yesterday">Yesterday at</string>
+    <string name="tweet_uploading">Tweet uploading...</string>
+    <string name="error_loading_tweets">Error loading tweets</string>
 </resources>

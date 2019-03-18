@@ -40,6 +40,7 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
                 viewState.showPendingTweet()
             }, {
                 it.printStackTrace()
+                viewState.hidePendingTweet()
             })
     }
 
@@ -50,8 +51,10 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
                 tweets.add(0, it)
                 viewState.notifyTweetAdded()
                 tweetsInteractor.pendingTweet()
+                viewState.hidePendingTweet()
             }, {
                 it.printStackTrace()
+                viewState.hidePendingTweet()
             })
     }
 
