@@ -14,6 +14,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -22,10 +24,12 @@ import com.klex.presentation.compose.ComposePresenter
 import com.klex.presentation.compose.ComposeView
 import com.klex.ui.R
 import com.klex.ui.createImageFile
+import com.klex.ui.fromUrl
 import com.klex.ui.mvpx.MvpXFragment
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_compose.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -50,6 +54,32 @@ class ComposeFragment : MvpXFragment(), ComposeView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_compose, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btn_post.setOnClickListener {
+            presenter.text = et_tweet_text.text.toString()
+            presenter.pendingPost()
+        }
+        iv_add_photo.setOnClickListener {
+            showChooseDialog()
+        }
+    }
+
+    private fun showChooseDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.choose_source))
+        val sources = arrayOf(getString(R.string.gallery), getString(R.string.camera))
+        builder.setItems(
+            sources
+        ) { _, which ->
+            when (which) {
+                PHOTO_GALLERY_INDEX -> presenter.searchPhoto()
+                PHOTO_CAMERA_INDEX -> presenter.takePhoto()
+            }
+        }
+        builder.create().show()
+    }
 
     override fun openGallery() {
         if (!requestReadWritePermissions()) {
@@ -77,6 +107,14 @@ class ComposeFragment : MvpXFragment(), ComposeView {
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
         }
+    }
+
+    override fun pendingSuccess() {
+        activity?.onBackPressed()
+    }
+
+    override fun validationError() {
+        Toast.makeText(context, getString(R.string.error_tweet_empty), Toast.LENGTH_LONG).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,6 +163,10 @@ class ComposeFragment : MvpXFragment(), ComposeView {
         return file.absolutePath
     }
 
+    override fun setPicture(path: String) {
+        iv_photo.fromUrl(path)
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -158,5 +200,7 @@ class ComposeFragment : MvpXFragment(), ComposeView {
         private const val CAMERA_REQUEST_CODE = 0x10
         private const val GALLERY_REQUEST_CODE = 0x11
         private const val PERMISSIONS_REQUEST_CODE = 0x12
+        private const val PHOTO_GALLERY_INDEX = 0
+        private const val PHOTO_CAMERA_INDEX = 1
     }
 }

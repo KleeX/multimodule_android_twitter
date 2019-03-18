@@ -8,4 +8,5 @@
     <dimen name="spacing">10dp</dimen>
     <dimen name="margin_fab">16dp</dimen>
     <dimen name="text_tweet_uploading">24sp</dimen>
+    <dimen name="add_photo_view_size">50dp</dimen>
 </resources>

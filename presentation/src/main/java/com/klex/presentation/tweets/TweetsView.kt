@@ -10,4 +10,5 @@ interface TweetsView : MvpView {
     fun showPendingTweet()
     fun notifyTweetAdded()
     fun hidePendingTweet()
+    fun showComposeTweet()
 }

@@ -32,25 +32,15 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
     override fun attachView(view: TweetsView?) {
         super.attachView(view)
         checkTweets()
-        tweetPendingDisposable?.dispose()
-        tweetPendingDisposable = tweetsInteractor.observePendingTweet()
-            .subscribe({
-                if (it.text.isNotEmpty() || it.picturePath.isNotEmpty())
-                    pushTweet(it)
-                viewState.showPendingTweet()
-            }, {
-                it.printStackTrace()
-                viewState.hidePendingTweet()
-            })
     }
 
     private fun pushTweet(tweet: TweetPending) {
         tweetPushingDisposable?.dispose()
         tweetPushingDisposable = tweetsInteractor.pushTweet(tweet.text, tweet.picturePath)
             .subscribe({
+                it.time = getTimeAgo(it.created, Date().time)
                 tweets.add(0, it)
                 viewState.notifyTweetAdded()
-                tweetsInteractor.pendingTweet()
                 viewState.hidePendingTweet()
             }, {
                 it.printStackTrace()
@@ -63,6 +53,18 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
             viewState.showLoading()
             loadTweets()
         }
+        tweetPendingDisposable?.dispose()
+        tweetPendingDisposable = tweetsInteractor.observePendingTweet()
+            .subscribe({
+                if (it.text.isNotEmpty() || it.picturePath.isNotEmpty()) {
+                    viewState.showPendingTweet()
+                    pushTweet(it)
+                    tweetsInteractor.pendingTweet()
+                }
+            }, {
+                it.printStackTrace()
+                viewState.hidePendingTweet()
+            })
     }
 
     fun loadTweets() {
@@ -107,6 +109,11 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
         tweetPendingDisposable?.dispose()
         tweetPushingDisposable?.dispose()
         super.detachView(view)
+    }
+
+    fun composeTweet() {
+        tweetPendingDisposable?.dispose()
+        viewState.showComposeTweet()
     }
 }
 

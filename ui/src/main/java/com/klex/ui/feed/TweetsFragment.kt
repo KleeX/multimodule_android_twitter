@@ -68,8 +68,12 @@ class TweetsFragment : MvpXFragment(), TweetsView {
             presenter.loadTweets()
         }
         fab_compose_tweet.setOnClickListener {
-            navController.navigate(R.id.composeFragment)
+            presenter.composeTweet()
         }
+    }
+
+    override fun showComposeTweet() {
+        navController.navigate(R.id.composeFragment)
     }
 
     override fun showTweets() {
@@ -99,5 +103,6 @@ class TweetsFragment : MvpXFragment(), TweetsView {
 
     override fun notifyTweetAdded() {
         tweetsAdapter.notifyItemInserted(0)
+        rv_tweets.scrollToPosition(0)
     }
 }

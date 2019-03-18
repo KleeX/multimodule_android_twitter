@@ -32,6 +32,10 @@
             android:name="com.klex.twitter.fake_activities.FakeTwitterActivity"
             android:theme="@style/Theme.Transparent" />
 
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.klex.fileprovider"

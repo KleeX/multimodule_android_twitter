@@ -7,4 +7,10 @@
     <string name="yesterday">Yesterday at</string>
     <string name="tweet_uploading">Tweet uploading...</string>
     <string name="error_loading_tweets">Error loading tweets</string>
+    <string name="error_tweet_empty">Tweet cannot be empty</string>
+    <string name="put_your_text_here">Put your text here</string>
+    <string name="post">Post</string>
+    <string name="choose_source">Choose a source</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
 </resources>

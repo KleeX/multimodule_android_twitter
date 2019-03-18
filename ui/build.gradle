@@ -42,7 +42,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_ui"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_ui"
-    implementation "com.theartofdev.edmodo:android-image-cropper:$image_cropper"
+    api "com.theartofdev.edmodo:android-image-cropper:$image_cropper"
     implementation project(':presentation')
 }
 
