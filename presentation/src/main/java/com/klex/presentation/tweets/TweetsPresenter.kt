@@ -95,9 +95,9 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
         val diff = (now - time / SECOND_MILLISECONDS).toInt()
         return when {
             diff < MINUTE_SECONDS -> Time(diff, TimePointer.Seconds)
-            diff < 50 * MINUTE_SECONDS -> Time(diff / MINUTE_SECONDS, TimePointer.Minutes)
-            diff < 24 * HOUR_SECONDS -> Time(diff / HOUR_SECONDS, TimePointer.Hours)
-            diff < 48 * HOUR_SECONDS -> Time(
+            diff < HOUR_SECONDS -> Time(diff / MINUTE_SECONDS, TimePointer.Minutes)
+            diff < DAY_SECONDS -> Time(diff / HOUR_SECONDS, TimePointer.Hours)
+            diff < 2 * DAY_SECONDS -> Time(
                 (time / SECOND_MILLISECONDS).toInt(),
                 TimePointer.Yesterday
             )
@@ -120,3 +120,4 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
 private const val SECOND_MILLISECONDS = 1000
 private const val MINUTE_SECONDS = 60
 private const val HOUR_SECONDS = 60 * MINUTE_SECONDS
+private const val DAY_SECONDS = 24 * HOUR_SECONDS
