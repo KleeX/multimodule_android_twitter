@@ -32,6 +32,19 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
     override fun attachView(view: TweetsView?) {
         super.attachView(view)
         checkTweets()
+
+        tweetPendingDisposable?.dispose()
+        tweetPendingDisposable = tweetsInteractor.observePendingTweet()
+            .subscribe({
+                if (it.text.isNotEmpty() || it.picturePath.isNotEmpty()) {
+                    viewState.showPendingTweet()
+                    pushTweet(it)
+                    tweetsInteractor.pendingTweet()
+                }
+            }, {
+                it.printStackTrace()
+                viewState.hidePendingTweet()
+            })
     }
 
     private fun pushTweet(tweet: TweetPending) {
@@ -53,18 +66,6 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
             viewState.showLoading()
             loadTweets()
         }
-        tweetPendingDisposable?.dispose()
-        tweetPendingDisposable = tweetsInteractor.observePendingTweet()
-            .subscribe({
-                if (it.text.isNotEmpty() || it.picturePath.isNotEmpty()) {
-                    viewState.showPendingTweet()
-                    pushTweet(it)
-                    tweetsInteractor.pendingTweet()
-                }
-            }, {
-                it.printStackTrace()
-                viewState.hidePendingTweet()
-            })
     }
 
     fun loadTweets() {
@@ -112,7 +113,6 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
     }
 
     fun composeTweet() {
-        tweetPendingDisposable?.dispose()
         viewState.showComposeTweet()
     }
 }

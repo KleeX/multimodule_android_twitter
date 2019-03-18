@@ -42,7 +42,7 @@ class TwitterTimeLine {
                     }
 
                     override fun failure(exception: TwitterException?) {
-                        emitter.onError(Throwable(exception))
+                        emitter.tryOnError(Throwable(exception))
                     }
                 })
         }
@@ -69,7 +69,7 @@ class TwitterTimeLine {
     fun pushTweet(textContent: String = "", picture: String = ""): Single<TweetResponse> =
         Single.create<TweetResponse> { emitter ->
             if (picture.isEmpty()) {
-
+                emitter.uploadTweet(textContent, null)
             } else TwitterCore.getInstance()
                 .apiClient
                 .mediaService

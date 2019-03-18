@@ -1,11 +1,13 @@
 package com.klex.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.os.Environment
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -38,4 +40,10 @@ fun Context.createImageFile(): File {
     val imageFileName = "JPEG_" + timeStamp + "_"
     val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(imageFileName, ".jpg", storageDir)
+}
+
+fun Activity.hideKeyboard() {
+    val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val v = currentFocus ?: return
+    inputManager.hideSoftInputFromWindow(v.windowToken, 0)
 }
