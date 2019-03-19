@@ -29,6 +29,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+
     implementation "androidx.exifinterface:exifinterface:$appcompat_support_version"
     implementation "androidx.vectordrawable:vectordrawable-animated:$appcompat_support_version"
     implementation "androidx.browser:browser:$appcompat_support_version"

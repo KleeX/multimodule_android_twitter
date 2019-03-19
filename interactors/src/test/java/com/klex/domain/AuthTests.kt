@@ -8,6 +8,8 @@ import org.junit.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
@@ -38,11 +40,15 @@ class AuthTests {
         assertTrue(!initInteractor.isAuthenticated)
 
         checkException(initRepository::reinitTwitter)
+        verify(initRepository, times(1)).reinitTwitter()
     }
 
     @Test
     fun authTests() {
         checkException(loginInteractor::authenticate)
+        verify(loginRepository, times(1)).authenticate()
+
         checkException(loginInteractor::logout)
+        verify(loginRepository, times(1)).logout()
     }
 }

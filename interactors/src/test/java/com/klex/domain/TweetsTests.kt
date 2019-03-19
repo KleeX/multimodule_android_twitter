@@ -10,6 +10,8 @@ import org.junit.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import java.util.*
@@ -108,5 +110,7 @@ open class TweetsTests {
             .assertValue(tweetPending)
 
         checkException { tweetsInteractor.pendingTweet(textContent, picPath) }
+        verify(tweetsRepository, times(1))
+            .pendingTweet(textContent, picPath)
     }
 }

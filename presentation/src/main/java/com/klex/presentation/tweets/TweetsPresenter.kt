@@ -32,7 +32,10 @@ class TweetsPresenter @Inject constructor() : MvpPresenter<TweetsView>() {
     override fun attachView(view: TweetsView?) {
         super.attachView(view)
         checkTweets()
+        observePendingTweet()
+    }
 
+    fun observePendingTweet() {
         tweetPendingDisposable?.dispose()
         tweetPendingDisposable = tweetsInteractor.observePendingTweet()
             .subscribe({
