@@ -33,9 +33,9 @@ class TwitterTimeLine {
                     override fun success(result: Result<List<Tweet>>?) {
                         when {
                             result == null ->
-                                emitter.onError(Throwable("Something were wrong :("))
+                                emitter.tryOnError(Throwable("Tweets result is null !"))
                             !result.response.isSuccessful ->
-                                emitter.onError(Throwable(result.response.message()))
+                                emitter.tryOnError(Throwable(result.response.message()))
                             else ->
                                 emitter.tweetsSuccessResponse(result.data)
                         }
@@ -82,15 +82,15 @@ class TwitterTimeLine {
                     override fun success(result: Result<Media>?) {
                         when {
                             result == null ->
-                                emitter.onError(Throwable("Something were wrong :("))
+                                emitter.tryOnError(Throwable("Something were wrong :("))
                             !result.response.isSuccessful ->
-                                emitter.onError(Throwable(result.response.message()))
+                                emitter.tryOnError(Throwable(result.response.message()))
                             else -> emitter.uploadTweet(textContent, result.data)
                         }
                     }
 
                     override fun failure(exception: TwitterException?) {
-                        emitter.onError(Throwable(exception))
+                        emitter.tryOnError(Throwable(exception))
                     }
                 })
         }
@@ -130,7 +130,7 @@ class TwitterTimeLine {
                 }
 
                 override fun failure(exception: TwitterException?) {
-                    onError(Throwable(exception))
+                    tryOnError(Throwable(exception))
                 }
             })
     }
