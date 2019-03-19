@@ -12,14 +12,15 @@ class PendingTweet(context: Context) {
     private val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
     private var rxPreferences = RxSharedPreferences.create(preferences)
-    val gson = GsonBuilder().create()
+    private val gson = GsonBuilder().create()
 
-    fun clearFull() {
+    fun clear() {
         preferences.edit()
             .clear()
             .apply()
     }
 
+    //json used for observing just one field
     fun putPendingTweet(text: String = "", picturePath: String = "") {
         preferences.edit()
             .putString(TWEET_JSON, gson.toJson(TweetPendingEntity(text, picturePath)))
@@ -27,7 +28,8 @@ class PendingTweet(context: Context) {
     }
 
     fun observePendingTweet(): Observable<TweetPendingEntity> =
-        rxPreferences.getString(TWEET_JSON, "").asObservable()
+        rxPreferences.getString(TWEET_JSON, "")
+            .asObservable()
             .map {
                 return@map if (it.isEmpty()) TweetPendingEntity()
                 else gson.fromJson(it, TweetPendingEntity::class.java)

@@ -3,6 +3,7 @@ package com.klex.twitterclient.di
 import android.app.Application
 import com.klex.domain.InitInteractorImpl
 import com.klex.domain.LoginInteractorImpl
+import com.klex.domain.SchedulerDataSource
 import com.klex.domain.TweetsInteractorImpl
 import com.klex.domain.repositories.InitRepository
 import com.klex.domain.repositories.LoginRepository
@@ -22,7 +23,6 @@ import com.klex.twitterclient.repositories.LoginRepoImpl
 import com.klex.twitterclient.repositories.TweetsRepoImpl
 import dagger.Module
 import dagger.Provides
-import io.reactivex.Scheduler
 import javax.inject.Singleton
 
 @Module
@@ -57,8 +57,7 @@ class TwitterModule {
     @Singleton
     fun provideTweetsInteractor(
         tweetsRepository: TweetsRepository,
-        @MainThread mainScheduler: Scheduler,
-        @IOThread ioScheduler: Scheduler
+        scheduler: SchedulerDataSource
     ): TweetsInteractor =
-        TweetsAdapter(TweetsInteractorImpl(tweetsRepository, mainScheduler, ioScheduler))
+        TweetsAdapter(TweetsInteractorImpl(tweetsRepository, scheduler))
 }

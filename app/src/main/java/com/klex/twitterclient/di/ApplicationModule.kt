@@ -1,12 +1,12 @@
 package com.klex.twitterclient.di
 
 import android.app.Application
+import com.klex.domain.SchedulerDataSource
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 /**
@@ -21,19 +21,16 @@ class ApplicationModule(private var application: Application) {
 
     @Provides
     @Singleton
-    @MainThread
     fun provideMainThreadScheduler(): Scheduler = AndroidSchedulers.mainThread()
 
     @Provides
     @Singleton
-    @IOThread
     fun provideIOThreadScheduler(): Scheduler = Schedulers.io()
+
+    @Provides
+    @Singleton
+    fun provideSchedulerDataSource(): SchedulerDataSource = object : SchedulerDataSource {
+        override fun main() = AndroidSchedulers.mainThread()
+        override fun io() = Schedulers.io()
+    }
 }
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class MainThread
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class IOThread

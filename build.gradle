@@ -20,6 +20,8 @@ buildscript {
     ext.appcompat_version = '1.0.2'
     ext.navigation_ui = '1.0.0-rc02'
     ext.image_cropper = '2.6.0'
+    ext.junit_version = '4.12'
+    ext.mockito_version = '2.15.0'
 
     repositories {
         google()
