@@ -24,6 +24,7 @@ platform :android do
   end
 
   lane :assemble_apk_for_prod do
+    test()
     next_version(message: "Release build")
     assemble(type: 'Release')
   end
@@ -108,7 +109,8 @@ platform :android do
 
   end
 
-  def upload_to (options)      
+  def upload_to (options)
+    test()      
     apk_path = options[:apk_path]
     track = options[:track]
     FileUtils.rm_rf(apk_path)
