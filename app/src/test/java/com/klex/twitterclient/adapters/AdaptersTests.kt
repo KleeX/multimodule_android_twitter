@@ -16,8 +16,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 
 class AdaptersTests {
     @get:Rule
@@ -138,17 +136,5 @@ class AdaptersTests {
                         && it.pictureUrl == tweet0.pictureUrl
                         && it.created == tweet0.created
             }
-    }
-
-    @Test
-    fun testModels() {
-        TweetPending::class.java.declaredFields.forEach {
-            assertTrue(isFinal(it))
-        }
-    }
-
-    private fun isFinal(field: Field): Boolean {
-        println(field)
-        return Modifier.isFinal(field.modifiers)
     }
 }
