@@ -11,7 +11,7 @@ For example:
 
 `twitter_secret="your_secret"`
 
-All tests are in separate module, except presenters tests. The are
+All tests are in separate module, except presenters tests. They are
 located in the `app` module, because of *Moxy* library implementation.
 
 In the project, you can see how to make all modules maximum independent
