@@ -54,7 +54,7 @@ class TweetsRepoImpl(
                         username = username,
                         nickname = nickname,
                         userAvatar = userAvatar,
-                        textContent = textContent,
+                        textContent = it.textContent,
                         pictureUrl = if (pictures.isNotEmpty()) pictures.first() else "",
                         created = dateFormat.parse(created).time
                     )
