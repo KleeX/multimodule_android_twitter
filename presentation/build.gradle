@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "io.reactivex.rxjava2:rxjava:$rx_version"
@@ -13,7 +14,10 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
 
-    testImplementation "junit:junit:$junit_version"
-    testImplementation "org.mockito:mockito-core:$mockito_version"
+kapt {
+    arguments {
+        arg("moxyReflectorPackage", "com.klex.presentation")
+    }
 }

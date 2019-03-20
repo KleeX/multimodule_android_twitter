@@ -1,4 +1,4 @@
-package com.klex.presentation
+package com.klex.twitterclient
 
 import org.junit.Assert.assertTrue
 

@@ -1,9 +1,10 @@
-package com.klex.presentation
+package com.klex.twitterclient.presentation
 
 import com.arellomobile.mvp.viewstate.MvpViewState
 import com.klex.presentation.compose.ComposePresenter
 import com.klex.presentation.compose.ComposeView
 import com.klex.presentation.interfaces.TweetsInteractor
+import com.klex.twitterclient.checkException
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

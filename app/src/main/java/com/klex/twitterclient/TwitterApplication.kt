@@ -30,6 +30,8 @@ class TwitterApplication : Application(), HasActivityInjector, HasSupportFragmen
         super.onCreate()
         initTwitter(this)
 
+
+
         DaggerAppMainComponent.builder()
             .application(this)
             .applicationModule(ApplicationModule(this))

@@ -1,4 +1,4 @@
-package com.klex.presentation
+package com.klex.twitterclient.presentation
 
 import com.arellomobile.mvp.viewstate.MvpViewState
 import com.klex.presentation.interfaces.InitInteractor
@@ -7,6 +7,7 @@ import com.klex.presentation.login.LoginPresenter
 import com.klex.presentation.login.LoginView
 import com.klex.presentation.splash.SplashPresenter
 import com.klex.presentation.splash.SplashView
+import com.klex.twitterclient.checkException
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

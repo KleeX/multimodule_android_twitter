@@ -1,9 +1,13 @@
-package com.klex.presentation
+package com.klex.twitterclient.presentation
 
 import com.arellomobile.mvp.viewstate.MvpViewState
+import com.klex.presentation.TimePointer
+import com.klex.presentation.Tweet
+import com.klex.presentation.TweetPending
 import com.klex.presentation.interfaces.TweetsInteractor
 import com.klex.presentation.tweets.TweetsPresenter
 import com.klex.presentation.tweets.TweetsView
+import com.klex.twitterclient.checkException
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
