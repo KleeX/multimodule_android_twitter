@@ -1,6 +1,6 @@
-package com.klex.domain
+package com.klex.interactors
 
-import com.klex.domain.repositories.TweetsRepository
+import com.klex.interactors.repositories.TweetsRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

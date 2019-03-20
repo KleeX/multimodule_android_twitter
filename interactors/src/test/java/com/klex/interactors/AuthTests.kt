@@ -1,7 +1,7 @@
-package com.klex.domain
+package com.klex.interactors
 
-import com.klex.domain.repositories.InitRepository
-import com.klex.domain.repositories.LoginRepository
+import com.klex.interactors.repositories.InitRepository
+import com.klex.interactors.repositories.LoginRepository
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test

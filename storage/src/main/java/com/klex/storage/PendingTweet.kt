@@ -5,29 +5,30 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.GsonBuilder
+import com.klex.storage.interfaces.IPendingTweet
 import io.reactivex.Observable
 
-class PendingTweet(context: Context) {
+class PendingTweet(context: Context) : IPendingTweet {
 
     private val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
     private var rxPreferences = RxSharedPreferences.create(preferences)
     private val gson = GsonBuilder().create()
 
-    fun clear() {
+    override fun clear() {
         preferences.edit()
             .clear()
             .apply()
     }
 
     //json used for observing just one field
-    fun putPendingTweet(text: String = "", picturePath: String = "") {
+    override fun putPendingTweet(text: String, picturePath: String) {
         preferences.edit()
             .putString(TWEET_JSON, gson.toJson(TweetPendingEntity(text, picturePath)))
             .apply()
     }
 
-    fun observePendingTweet(): Observable<TweetPendingEntity> =
+    override fun observePendingTweet(): Observable<TweetPendingEntity> =
         rxPreferences.getString(TWEET_JSON, "")
             .asObservable()
             .map {

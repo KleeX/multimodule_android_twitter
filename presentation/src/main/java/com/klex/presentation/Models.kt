@@ -9,6 +9,9 @@ class Tweet(
     val created: Long
 ) {
     lateinit var time: Time
+    override fun toString(): String {
+        return "Tweet(username='$username', nickname='$nickname', userAvatar='$userAvatar', textContent='$textContent', pictureUrl='$pictureUrl', created=$created"
+    }
 }
 
 class TweetPending(val text: String = "", val picturePath: String = "")

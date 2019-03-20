@@ -1,4 +1,4 @@
-package com.klex.domain
+package com.klex.interactors
 
 import org.junit.Assert.assertTrue
 

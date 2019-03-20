@@ -1,13 +1,13 @@
 package com.klex.twitterclient.di
 
 import android.app.Application
-import com.klex.domain.InitInteractorImpl
-import com.klex.domain.LoginInteractorImpl
-import com.klex.domain.SchedulerDataSource
-import com.klex.domain.TweetsInteractorImpl
-import com.klex.domain.repositories.InitRepository
-import com.klex.domain.repositories.LoginRepository
-import com.klex.domain.repositories.TweetsRepository
+import com.klex.interactors.InitInteractorImpl
+import com.klex.interactors.LoginInteractorImpl
+import com.klex.interactors.SchedulerDataSource
+import com.klex.interactors.TweetsInteractorImpl
+import com.klex.interactors.repositories.InitRepository
+import com.klex.interactors.repositories.LoginRepository
+import com.klex.interactors.repositories.TweetsRepository
 import com.klex.presentation.interfaces.InitInteractor
 import com.klex.presentation.interfaces.LoginInteractor
 import com.klex.presentation.interfaces.TweetsInteractor

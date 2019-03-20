@@ -1,6 +1,7 @@
 package com.klex.twitter.implementations
 
 import com.klex.twitter.TweetResponse
+import com.klex.twitter.interfaces.ITwitterTimeLine
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterCore
@@ -14,9 +15,9 @@ import okhttp3.RequestBody
 import java.io.File
 
 
-class TwitterTimeLine {
+class TwitterTimeLine : ITwitterTimeLine {
 
-    val singleTweets: Single<List<TweetResponse>>
+    override val singleTweets: Single<List<TweetResponse>>
         get() = Single.create<List<TweetResponse>> { emitter ->
             TwitterCore.getInstance()
                 .apiClient
@@ -66,7 +67,7 @@ class TwitterTimeLine {
         onSuccess(tweetsList)
     }
 
-    fun pushTweet(textContent: String = "", picture: String = ""): Single<TweetResponse> =
+    override fun pushTweet(textContent: String, picture: String): Single<TweetResponse> =
         Single.create<TweetResponse> { emitter ->
             if (picture.isEmpty()) {
                 emitter.uploadTweet(textContent, null)

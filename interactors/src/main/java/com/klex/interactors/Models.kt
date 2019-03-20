@@ -1,4 +1,4 @@
-package com.klex.domain
+package com.klex.interactors
 
 data class Tweet(
     val username: String,

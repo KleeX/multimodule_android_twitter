@@ -3,14 +3,15 @@ package com.klex.twitter.implementations
 import android.content.Context
 import android.util.Log
 import com.klex.twitter.BuildConfig
+import com.klex.twitter.interfaces.ITwitterInit
 import com.twitter.sdk.android.core.*
 
-class TwitterInit(private val context: Context) {
+class TwitterInit(private val context: Context) : ITwitterInit {
 
-    val isAuthenticated: Boolean
+    override val isAuthenticated: Boolean
         get() = TwitterCore.getInstance().sessionManager.activeSession != null
 
-    fun reinitTwitter() = com.klex.twitter.implementations.initTwitter(context)
+    override fun reinitTwitter() = com.klex.twitter.implementations.initTwitter(context)
 }
 
 fun initTwitter(context: Context) {

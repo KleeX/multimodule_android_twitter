@@ -1,11 +1,11 @@
-package com.klex.domain.repositories
+package com.klex.interactors.interfaces
 
-import com.klex.domain.Tweet
-import com.klex.domain.TweetPending
+import com.klex.interactors.Tweet
+import com.klex.interactors.TweetPending
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface TweetsRepository {
+interface ITweetsInteractor {
     val tweets: Single<List<Tweet>>
     fun pushTweet(textContent: String = "", picture: String = ""): Single<Tweet>
     fun pendingTweet(textContent: String = "", picture: String = "")

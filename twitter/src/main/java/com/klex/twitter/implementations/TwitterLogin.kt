@@ -6,18 +6,19 @@ import android.os.Build
 import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
 import com.klex.twitter.fake_activities.FakeTwitterActivity
+import com.klex.twitter.interfaces.ITwitterLogin
 import com.twitter.sdk.android.core.TwitterCore
 
 
-class TwitterLogin(private val context: Context) {
+class TwitterLogin(private val context: Context) : ITwitterLogin {
 
-    fun authenticate() {
+    override fun authenticate() {
         val intent = Intent(context, FakeTwitterActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
     }
 
-    fun logout() {
+    override fun logout() {
         val twitterSession = TwitterCore.getInstance().sessionManager.activeSession
         if (twitterSession != null) {
             clearCookies()

@@ -1,7 +1,7 @@
 package com.klex.twitterclient.di
 
 import android.app.Application
-import com.klex.domain.SchedulerDataSource
+import com.klex.interactors.SchedulerDataSource
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler

@@ -1,18 +1,18 @@
 package com.klex.twitterclient.repositories
 
 import android.annotation.SuppressLint
-import com.klex.domain.Tweet
-import com.klex.domain.TweetPending
-import com.klex.domain.repositories.TweetsRepository
-import com.klex.storage.PendingTweet
-import com.klex.twitter.implementations.TwitterTimeLine
+import com.klex.interactors.Tweet
+import com.klex.interactors.TweetPending
+import com.klex.interactors.repositories.TweetsRepository
+import com.klex.storage.interfaces.IPendingTweet
+import com.klex.twitter.interfaces.ITwitterTimeLine
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.text.SimpleDateFormat
 
 class TweetsRepoImpl(
-    private val twitterTimeLine: TwitterTimeLine,
-    private val pendingTweet: PendingTweet
+    private val twitterTimeLine: ITwitterTimeLine,
+    private val pendingTweet: IPendingTweet
 ) : TweetsRepository {
 
     @SuppressLint("SimpleDateFormat")

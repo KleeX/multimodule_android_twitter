@@ -1,4 +1,4 @@
-package com.klex.domain.repositories
+package com.klex.interactors.repositories
 
 interface InitRepository {
     val isAuthenticated: Boolean
