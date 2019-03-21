@@ -26,4 +26,8 @@ Repository, Adapters, Application, and Dagger (DI) are located in this
 module. So, through the DI we allowed injecting our implementations to
 each module which need them. For this used AndroidInjection.
 
-Later I'll update the repository with the scheme of the architecture.
+The dependencies between modules described in the diagram below. There
+we can see `Sources`, in the project we have two: `twitter` and
+`storage`.
+
+![Architecture diagram](.pics/ArchitectureDiagram.png)
